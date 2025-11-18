@@ -202,7 +202,9 @@ export function ProjectsSection() {
                       <span>View Details</span>
                       <ExternalLink size={16} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                     </button>
-                    <button className="p-2 rounded-lg border border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-orange-500 transition-all">
+                    <button
+                    onClick={() => window.open('https://github.com/Guruprasads04/giffy', '_blank', 'noopener,noreferrer')} 
+                    className="p-2 rounded-lg border border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 text-orange-500 transition-all">
                       <Github size={20} />
                     </button>
                   </div>
