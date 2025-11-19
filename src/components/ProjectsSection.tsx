@@ -2,6 +2,10 @@ import { motion } from 'motion/react';
 import { ExternalLink, Github, X, CheckCircle2, Sparkles, Zap, Target } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { useState } from 'react';
+import planarcImg from '../assets/Planarc.png';
+import frizoImg from '../assets/Frizo.png';
+import GiffyImg from '../assets/Giffy.png';
+import model3DImg from '../assets/tea shop.png';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 
 interface Project {
@@ -25,13 +29,14 @@ interface Project {
 
 export function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const projects: Project[] = [
     {
       title: 'Giffy',
       subtitle: 'AI GIF Animation Generator',
       description: 'An AI-powered application that generates custom GIF animations based on user prompts. Leverages machine learning models for creative content generation.',
-      image: 'https://images.unsplash.com/photo-1757310998648-f8aaa5572e8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBSSUyMHRlY2hub2xvZ3klMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzYzMjk5MzAwfDA&ixlib=rb-4.1.0&q=80&w=1080',
+      image: GiffyImg,
       category: 'AI/ML',
       tech: ['Python', 'TensorFlow', 'Flask', 'React'],
       gradient: 'from-orange-500 to-red-500',
@@ -61,70 +66,108 @@ export function ProjectsSection() {
     },
     {
       title: 'PlanArc',
-      subtitle: 'Dashboard UI Design',
-      description: 'A modern, intuitive dashboard interface for project planning and architecture. Features clean design, data visualization, and seamless user experience.',
-      image: 'https://images.unsplash.com/photo-1758240931165-60242e5ce08c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBkYXNoYm9hcmQlMjBkZXNpZ258ZW58MXx8fHwxNzYzMzkwMzU0fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      category: 'UI/UX',
-      tech: ['Figma', 'React', 'Tailwind'],
+      subtitle: 'Dashboard UI & Frontend Implementation',
+      description: 'Designed and implemented a modern dashboard UI covering visual design, component library, and frontend implementation for performant, accessible interfaces.',
+      image: planarcImg,
+      category: 'Web Design',
+      tech: ['Figma', 'React', 'Tailwind', 'TypeScript'],
       gradient: 'from-orange-600 to-amber-500',
       detailedInfo: {
-        overview: 'PlanArc is a comprehensive dashboard solution designed to streamline project planning and architectural workflows. The interface prioritizes clarity, efficiency, and visual appeal.',
+        overview: 'PlanArc is a comprehensive dashboard solution focused on clear information architecture and polished UI. I led the visual design, created a reusable component library, and implemented the frontend with emphasis on accessibility and performance.',
         features: [
-          'Interactive data visualizations with real-time updates',
-          'Drag-and-drop project timeline builder',
-          'Customizable widget-based dashboard layout',
-          'Dark/Light theme with smooth transitions',
-          'Responsive design for all devices'
+          'Pixel-perfect UI components implemented as reusable React components',
+          'Interactive data visualizations with performant rendering',
+          'Drag-and-drop project timeline built with accessible controls',
+          'Token-based theming and light/dark mode support',
+          'Responsive layouts with fluid grid and breakpoint-aware components'
         ],
         challenges: [
-          'Designing complex data visualizations while maintaining clarity',
-          'Creating a flexible layout system for diverse user needs',
-          'Ensuring accessibility compliance across all components'
+          'Translating high-fidelity designs into reusable, accessible components',
+          'Ensuring performant rendering for data-heavy visualizations',
+          'Maintaining visual consistency across varying screen sizes and states'
         ],
         outcomes: [
-          'Improved task completion time by 40%',
-          'Received design award for best dashboard interface',
-          'Adopted by 500+ project teams'
+          'Delivered a component library that reduced new UI development time by 50%',
+          'Improved task completion time by 40% through clearer information hierarchy',
+          'Achieved WCAG AA accessibility for core flows'
         ],
-        technologies: ['Figma', 'React', 'Tailwind CSS', 'Recharts', 'TypeScript', 'Framer Motion'],
+        technologies: ['Figma', 'React', 'Tailwind CSS', 'TypeScript', 'D3'],
         duration: '2 months',
-        role: 'UI/UX Designer & Frontend Developer'
+        role: 'UI Designer & Frontend Developer'
       }
     },
     {
       title: 'Frizo',
-      subtitle: 'Online Shopping Web App',
-      description: 'A full-stack e-commerce platform with modern UI, secure payment integration, and robust backend. Complete shopping experience from browsing to checkout.',
-      image: 'https://images.unsplash.com/photo-1723705027411-9bfc3c99c2e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlY29tbWVyY2UlMjBzaG9wcGluZyUyMGFwcHxlbnwxfHx8fDE3NjMzODY0MDd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      category: 'Full-Stack',
-      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      subtitle: 'E‑commerce UI/UX Redesign',
+      description: 'A UI/UX focused redesign of an online shopping platform. Delivered user research, interaction design, prototypes, and a scalable design system to improve conversion and retention.',
+      image: frizoImg,
+      category: 'UI/UX',
+      tech: ['Figma', 'Sketch', 'Adobe XD', 'Principle'],
       gradient: 'from-orange-500 to-orange-700',
       detailedInfo: {
-        overview: 'Frizo is a modern e-commerce platform that delivers a seamless shopping experience. Built with scalability and security in mind, it handles everything from product browsing to secure checkout.',
+        overview: 'Frizo is a user-centered redesign project aimed at elevating the shopping experience. Work included discovery research, high-fidelity prototypes, iterative usability testing, and handoff-ready design deliverables for engineering.',
         features: [
-          'Advanced product filtering and search',
-          'Real-time inventory management',
-          'Secure payment processing with Stripe',
-          'User authentication and profile management',
-          'Order tracking and history',
-          'Admin dashboard for product and order management'
+          'End-to-end UX research (surveys, interviews, usability tests)',
+          'High-fidelity interactive prototypes for key flows (checkout, search, product pages)',
+          'Design system with reusable components and token-based theming',
+          'Responsive, accessible layouts for mobile and desktop',
+          'Micro-interactions and motion guidelines to improve delight and clarity'
         ],
         challenges: [
-          'Implementing secure payment flow with PCI compliance',
-          'Optimizing database queries for large product catalogs',
-          'Building real-time inventory synchronization'
+          'Aligning business goals with user needs across diverse user segments',
+          'Maintaining visual polish while ensuring performance-friendly assets',
+          'Establishing a consistent design system and developer handoff process'
         ],
         outcomes: [
-          'Processed $50,000+ in transactions during first month',
-          '99.9% uptime with robust error handling',
-          '4.8/5 average user rating'
+          'Raised conversion rate by 18% after redesign',
+          'Reduced support inquiries related to checkout by 32%',
+          'Design system adopted across product teams, speeding up feature delivery'
         ],
-        technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Stripe API', 'JWT Auth', 'Redis'],
-        duration: '4 months',
-        role: 'Full-Stack Developer'
+        technologies: ['Figma', 'Sketch', 'Principle', 'Zeplin (handoff)', 'UserTesting.com'],
+        duration: '3 months',
+        role: 'Lead UI/UX Designer'
+      }
+    },
+    {
+      title: 'Tea Shop Model',
+      subtitle: '3D Model Crafted Using Blender & Maya',
+      description: 'A detailed 3D model of a tea shop created using Blender and Maya. Focused on realistic texturing, lighting, and architectural accuracy for visualization and animation purposes.',
+      image: model3DImg,
+      category: '3D Model',
+      tech: ['Blender', 'Maya', 'Substance Painter', 'Photoshop'],
+      gradient: 'from-indigo-500 to-purple-500',
+      detailedInfo: {
+        overview: 'This project features a highly detailed tea shop model designed for architectural visualization and animation. The workflow included modeling in Blender and Maya, texturing in Substance Painter, and post-processing in Photoshop.',
+        features: [
+          'Realistic architectural modeling with accurate proportions',
+          'High-resolution textures and PBR materials',
+          'Advanced lighting setup for photorealistic renders',
+          'Optimized mesh for smooth animation and rendering',
+          'Custom props and interior detailing'
+        ],
+        challenges: [
+          'Achieving realism while keeping polygon count optimized',
+          'Seamless integration of assets between Blender and Maya',
+          'Fine-tuning lighting for different moods and times of day'
+        ],
+        outcomes: [
+          'Produced portfolio-ready renders and walkthrough animations',
+          'Model used in client presentations and marketing materials',
+          'Demonstrated proficiency in both Blender and Maya workflows'
+        ],
+        technologies: ['Blender', 'Maya', 'Substance Painter', 'Photoshop'],
+        duration: '2 weeks',
+        role: '3D Artist & Visualizer'
       }
     }
   ];
+
+  // derive categories (keep order: All first)
+  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+
+  const filteredProjects = selectedCategory === 'All'
+    ? projects
+    : projects.filter(p => p.category === selectedCategory);
 
   return (
     <section id="projects" className="relative py-24 px-4">
@@ -142,8 +185,22 @@ export function ProjectsSection() {
           </p>
         </motion.div>
 
+        {/* Category filters */}
+        <div className="flex flex-wrap items-center gap-3 mb-6">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3 py-1 rounded-full text-sm border transition-colors ${selectedCategory === cat ? 'bg-orange-500 text-white border-orange-500' : 'bg-black/20 text-gray-300 border-transparent hover:border-orange-500/20'}`}
+              aria-pressed={selectedCategory === cat}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -162,7 +219,7 @@ export function ProjectsSection() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   {/* Gradient overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient} opacity-20 group-hover:opacity-30 transition-opacity`} />
+                  {/* <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient} opacity-20 group-hover:opacity-30 transition-opacity`} /> */}
                   
                   {/* Category badge */}
                   <div className="absolute top-4 right-4 px-3 py-1 rounded-full backdrop-blur-md bg-black/60 border border-orange-500/30 text-orange-400 text-sm">

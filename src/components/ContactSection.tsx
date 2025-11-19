@@ -1,9 +1,49 @@
 import { motion } from 'motion/react';
 import { Mail, Linkedin, Github, Send, MapPin, Phone } from 'lucide-react';
-// Formspree integration: no need for useState
+import React, { useState, useRef } from 'react';
 
 export function ContactSection() {
-  // Formspree handles submission, so no local state or handlers needed
+  // Controlled form state so we can reset after successful submission
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === 'sending') return;
+    setStatus('sending');
+
+    try {
+      const form = e.currentTarget;
+      const data = new FormData(form);
+
+      const res = await fetch('https://formspree.io/f/mqanawor', {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' }
+      });
+
+      if (res.ok) {
+        setStatus('success');
+        // clear controlled state and form fields
+        setFormData({ name: '', email: '', message: '' });
+        form.reset();
+        // return to idle after short delay so user can submit again
+        setTimeout(() => setStatus('idle'), 4000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 4000);
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
+  };
 
   const contactInfo = [
     {
@@ -68,7 +108,7 @@ export function ContactSection() {
               {/* Glow effect */}
               <div className="absolute -inset-0.5 bg-gradient-to-br from-orange-500/20 to-transparent rounded-2xl blur opacity-50" />
               
-              <form action="https://formspree.io/f/mqanawor" method="POST" className="relative z-10 space-y-6">
+              <form onSubmit={handleSubmit} ref={formRef} className="relative z-10 space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-300 mb-2">
                     Name
@@ -77,6 +117,8 @@ export function ContactSection() {
                     type="text"
                     id="name"
                     name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-black/40 border border-orange-500/30 focus:border-orange-500 text-white placeholder-gray-500 outline-none transition-all"
                     placeholder="Your name"
@@ -91,6 +133,8 @@ export function ContactSection() {
                     type="email"
                     id="email"
                     name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-black/40 border border-orange-500/30 focus:border-orange-500 text-white placeholder-gray-500 outline-none transition-all"
                     placeholder="your.email@example.com"
@@ -104,22 +148,33 @@ export function ContactSection() {
                   <textarea
                     id="message"
                     name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     required
                     rows={6}
                     className="w-full px-4 py-3 rounded-xl bg-black/40 border border-orange-500/30 focus:border-orange-500 text-white placeholder-gray-500 outline-none transition-all resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>
+                <div className="space-y-2">
+                  {status === 'success' && (
+                    <div className="text-green-400 text-sm">Message sent — thank you!</div>
+                  )}
+                  {status === 'error' && (
+                    <div className="text-red-400 text-sm">There was an error. Please try again.</div>
+                  )}
 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="w-full px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group"
-                >
-                  <span>Send Message</span>
-                  <Send size={20} className="group-hover:translate-x-1 transition-transform" />
-                </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    disabled={status === 'sending'}
+                    className="w-full px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    <span>{status === 'sending' ? 'Sending...' : 'Send Message'}</span>
+                    <Send size={20} className="group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
+                </div>
               </form>
             </div>
           </motion.div>

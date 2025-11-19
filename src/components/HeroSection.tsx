@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Contact, Download } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { TypingEffect } from './TypingEffect';
 import profilePhoto from 'figma:asset/3dde703682aa590c4049aaaffab8f068ef1c951c.png';
@@ -216,7 +216,7 @@ export function HeroSection() {
                 className="group relative px-8 md:px-10 py-4 md:py-5 border-2 border-orange-500/50 hover:border-orange-500 text-orange-500 hover:text-white rounded-2xl transition-all duration-300 backdrop-blur-sm bg-orange-500/5 hover:bg-orange-500 flex items-center gap-3 hover:scale-105"
               >
                 <span className="relative z-10 text-base md:text-lg">Contact Me</span>
-                <Download size={20} className="relative z-10" />
+                <Contact size={20} className="relative z-10" />
               </a>
             </motion.div>
           </motion.div>

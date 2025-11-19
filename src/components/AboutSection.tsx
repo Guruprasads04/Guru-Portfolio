@@ -129,7 +129,7 @@ export function AboutSection() {
               className="mt-8"
             >
               <a
-                href="/cv.pdf"
+                href="https://drive.google.com/file/d/1ugYvvHCT44H1iOKZnbldQ4p_kBwzDZZP/view?usp=sharing"
                 download
                 className="group inline-flex items-center gap-3 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105"
               >
