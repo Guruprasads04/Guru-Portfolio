@@ -6,6 +6,8 @@ import planarcImg from '../assets/Planarc.png';
 import frizoImg from '../assets/Frizo.png';
 import GiffyImg from '../assets/Giffy.png';
 import model3DImg from '../assets/tea shop.png';
+import NtptImg from '../assets/NTPT.png';
+import HotwheelsImg from '../assets/hotwheels.png';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 
 interface Project {
@@ -64,6 +66,83 @@ export function ProjectsSection() {
         role: 'Full-Stack Developer & ML Engineer'
       }
     },
+      {
+        title: 'NTPT',
+        subtitle: 'Network Traffic Prediction Tool',
+        description: 'A machine learning-driven system designed to analyze and predict network traffic patterns for improved security, performance, and anomaly detection.',
+        image: NtptImg,
+        category: 'AI/ML',
+        tech: ['Python', 'scikit-learn', 'TensorFlow', 'Flask'],
+        gradient: 'from-blue-600 to-cyan-500',
+        detailedInfo: {
+          overview: 'NTPT (Network Traffic Prediction Tool) is an AI-powered system built to forecast network traffic and detect anomalies using Random Forest and LSTM deep learning models. It processes real-time traffic parameters and delivers accurate predictions to help users analyze usage trends and security insights.',
+          features: [
+            'Real-time network traffic prediction',
+            'Random Forest + LSTM hybrid prediction engine',
+            'Interactive dashboard for analytics and visualization',
+            'Detection of unusual traffic spikes and anomalies',
+            'REST API for integrating predictions with other platforms'
+          ],
+          challenges: [
+            'Preprocessing high-dimensional network traffic data',
+            'Improving prediction accuracy across varying traffic patterns',
+            'Optimizing LSTM performance for time-series data',
+            'Designing a smooth UI for complex data interpretation'
+          ],
+          outcomes: [
+            'Achieved over 90% prediction accuracy',
+            'Reduced prediction latency with optimized feature selection',
+            'Successfully deployed a full-stack ML application using Flask',
+            'Enabled real-time prediction visualization for end users'
+          ],
+          technologies: [
+            'Python',
+            'scikit-learn (Random Forest)',
+            'TensorFlow (LSTM)',
+            'Flask API',
+            'HTML, CSS, JavaScript'
+          ],
+          duration: '3 months',
+          role: 'Full-Stack Developer & ML Engineer'
+        }
+      },
+      {
+        title: 'Hot Wheels 3D UI Experience',
+        subtitle: 'Interactive Automotive Website Prototype',
+        description: 'A high-fidelity 3D-inspired website prototype designed in Figma and Sketch, featuring dynamic visuals, smooth transitions, and an immersive car-themed interface.',
+        image: HotwheelsImg,
+        category: 'UI/UX',
+        tech: ['Figma', 'Sketch', 'Prototyping'],
+        gradient: 'from-red-600 to-orange-500',
+        detailedInfo: {
+          overview: 'This project is a visually compelling UI/UX prototype inspired by Hot Wheels. Designed entirely using Figma and Sketch, it features 3D styled elements, animated transitions, and a bold color palette. The focus was on creating an engaging, immersive automotive experience without any code fully driven by design and prototyping tools.',
+          features: [
+            '3D-inspired car visualization and layout',
+            'Smooth screen-to-screen prototype transitions',
+            'Interactive hotspots and animated user flows',
+            'Custom icons, typography, and automotive color palette',
+            'Story-driven UI showcasing car details and branding'
+          ],
+          challenges: [
+            'Simulating 3D depth and reflections using only Figma tools',
+            'Achieving fluid micro-interactions within prototype limits',
+            'Maintaining visual balance with bold colors and heavy graphics',
+            'Designing a consistent layout across multiple interactive screens'
+          ],
+          outcomes: [
+            'Delivered a high-quality interactive prototype with strong visual appeal',
+            'Created a smooth and realistic 3D-like user experience without code',
+            'Successfully showcased visual storytelling and design skills',
+            'Received positive feedback for creativity and presentation'
+          ],
+          technologies: [
+            'Figma (UI Design + Prototyping)',
+            'Sketch (Visual Design + Components)'
+          ],
+          duration: '3 weeks',
+          role: 'UI/UX Designer & Prototype Developer'
+        }
+      },
     {
       title: 'PlanArc',
       subtitle: 'Dashboard UI & Frontend Implementation',
@@ -128,13 +207,14 @@ export function ProjectsSection() {
         role: 'Lead UI/UX Designer'
       }
     },
+    
     {
       title: 'Tea Shop Model',
       subtitle: '3D Model Crafted Using Blender & Maya',
       description: 'A detailed 3D model of a tea shop created using Blender and Maya. Focused on realistic texturing, lighting, and architectural accuracy for visualization and animation purposes.',
       image: model3DImg,
       category: '3D Model',
-      tech: ['Blender', 'Maya', 'Substance Painter', 'Photoshop'],
+      tech: ['Blender', 'Maya', 'Substance Painter'],
       gradient: 'from-indigo-500 to-purple-500',
       detailedInfo: {
         overview: 'This project features a highly detailed tea shop model designed for architectural visualization and animation. The workflow included modeling in Blender and Maya, texturing in Substance Painter, and post-processing in Photoshop.',
@@ -282,7 +362,7 @@ export function ProjectsSection() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className={`absolute -bottom-2 -right-2 w-20 h-20 rounded-xl border-2 border-orange-500/20 backdrop-blur-sm bg-gradient-to-br ${project.gradient} opacity-10 pointer-events-none`}
+                className={`absolute -bottom-4 -right-4 w-20 h-20 rounded-xl border-2 border-orange-500/20 backdrop-blur-sm bg-gradient-to-br ${project.gradient} opacity-10 pointer-events-none Z-10`}
               />
             </motion.div>
           ))}
@@ -311,7 +391,7 @@ export function ProjectsSection() {
                     alt={selectedProject.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${selectedProject.gradient} opacity-20`} />
+                  <div className={`absolute inset-0 -to-t ${selectedProject.gradient} opacity-0`} />
                 </div>
 
                 {/* Meta Info */}
