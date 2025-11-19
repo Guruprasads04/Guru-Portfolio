@@ -7,7 +7,7 @@ export function InternshipsSection() {
       role: 'Frontend Developer Intern',
       company: 'Synkdesk',
       location: 'Puducherry',
-      period: '2024',
+      period: '2025',
       description: 'Developed responsive web applications using React and modern frontend technologies. Collaborated with design team to implement pixel-perfect UI components.',
       achievements: [
         'Built reusable component library',
