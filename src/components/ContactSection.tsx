@@ -6,6 +6,7 @@ export function ContactSection() {
   // Controlled form state so we can reset after successful submission
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -20,26 +21,41 @@ export function ContactSection() {
     try {
       const form = e.currentTarget;
       const data = new FormData(form);
+      // debug: log form data entries
+      for (const pair of data.entries()) {
+        console.log('formdata', pair[0], pair[1]);
+      }
 
       const res = await fetch('https://formspree.io/f/mqanawor', {
         method: 'POST',
         body: data,
         headers: { Accept: 'application/json' }
       });
+      const contentType = res.headers.get('content-type') || '';
+      let body: any = null;
+      if (contentType.includes('application/json')) {
+        body = await res.json();
+      } else {
+        body = await res.text();
+      }
 
       if (res.ok) {
         setStatus('success');
+        setErrorMessage(null);
         // clear controlled state and form fields
         setFormData({ name: '', email: '', message: '' });
         form.reset();
         // return to idle after short delay so user can submit again
         setTimeout(() => setStatus('idle'), 4000);
       } else {
+        console.error('Formspree error response:', res.status, body);
+        setErrorMessage(body?.error || body?.message || `Status ${res.status}`);
         setStatus('error');
         setTimeout(() => setStatus('idle'), 4000);
       }
     } catch (err) {
-      console.error(err);
+      console.error('Network error sending form:', err);
+      setErrorMessage(String(err));
       setStatus('error');
       setTimeout(() => setStatus('idle'), 4000);
     }
@@ -161,7 +177,7 @@ export function ContactSection() {
                     <div className="text-green-400 text-sm">Message sent — thank you!</div>
                   )}
                   {status === 'error' && (
-                    <div className="text-red-400 text-sm">There was an error. Please try again.</div>
+                    <div className="text-red-400 text-sm">There was an error. {errorMessage ? (<span className="block">{errorMessage}</span>) : 'Please try again.'}</div>
                   )}
 
                   <motion.button
