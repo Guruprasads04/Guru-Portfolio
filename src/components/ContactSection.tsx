@@ -1,64 +1,13 @@
 import { motion } from 'motion/react';
 import { Mail, Linkedin, Github, Send, MapPin, Phone } from 'lucide-react';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 export function ContactSection() {
-  // Controlled form state so we can reset after successful submission
+  // Controlled form state (we'll use native form POST to Formspree for simplicity)
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const formRef = useRef<HTMLFormElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (status === 'sending') return;
-    setStatus('sending');
-
-    try {
-      const form = e.currentTarget;
-      const data = new FormData(form);
-      // debug: log form data entries
-      for (const pair of data.entries()) {
-        console.log('formdata', pair[0], pair[1]);
-      }
-
-      const res = await fetch('https://formspree.io/f/mqanawor', {
-        method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' }
-      });
-      const contentType = res.headers.get('content-type') || '';
-      let body: any = null;
-      if (contentType.includes('application/json')) {
-        body = await res.json();
-      } else {
-        body = await res.text();
-      }
-
-      if (res.ok) {
-        setStatus('success');
-        setErrorMessage(null);
-        // clear controlled state and form fields
-        setFormData({ name: '', email: '', message: '' });
-        form.reset();
-        // return to idle after short delay so user can submit again
-        setTimeout(() => setStatus('idle'), 4000);
-      } else {
-        console.error('Formspree error response:', res.status, body);
-        setErrorMessage(body?.error || body?.message || `Status ${res.status}`);
-        setStatus('error');
-        setTimeout(() => setStatus('idle'), 4000);
-      }
-    } catch (err) {
-      console.error('Network error sending form:', err);
-      setErrorMessage(String(err));
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 4000);
-    }
   };
 
   const contactInfo = [
@@ -124,7 +73,8 @@ export function ContactSection() {
               {/* Glow effect */}
               <div className="absolute -inset-0.5 bg-gradient-to-br from-orange-500/20 to-transparent rounded-2xl blur opacity-50" />
               
-              <form onSubmit={handleSubmit} ref={formRef} className="relative z-10 space-y-6">
+              <form action="https://formspree.io/f/mqanawor" method="POST" className="relative z-10 space-y-6">
+                <input type="hidden" name="_replyto" value={formData.email} />
                 <div>
                   <label htmlFor="name" className="block text-gray-300 mb-2">
                     Name
@@ -172,25 +122,15 @@ export function ContactSection() {
                     placeholder="Tell me about your project..."
                   />
                 </div>
-                <div className="space-y-2">
-                  {status === 'success' && (
-                    <div className="text-green-400 text-sm">Message sent — thank you!</div>
-                  )}
-                  {status === 'error' && (
-                    <div className="text-red-400 text-sm">There was an error. {errorMessage ? (<span className="block">{errorMessage}</span>) : 'Please try again.'}</div>
-                  )}
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    disabled={status === 'sending'}
-                    className="w-full px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    <span>{status === 'sending' ? 'Sending...' : 'Send Message'}</span>
-                    <Send size={20} className="group-hover:translate-x-1 transition-transform" />
-                  </motion.button>
-                </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="w-full px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+                >
+                  <span>Send Message</span>
+                  <Send size={20} className="group-hover:translate-x-1 transition-transform" />
+                </motion.button>
               </form>
             </div>
           </motion.div>
