@@ -39,7 +39,7 @@ export function InternshipsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-orange-500 mb-4">Internship Experience</h2>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Internship Experience</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
             Professional experience across leading technology companies
           </p>
